@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom QR Code Generator</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">QR Customizer</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Generator</a></li>
+            <li><a href="about.html">About & License</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="glass-card main-card">
+            <h1>Create Customized QR Code</h1>
+            <p class="subtitle">Design your QR code with shapes, logos, and blended backgrounds.</p>
+            
+            <div class="content-grid">
+                <form id="qr-form" class="form-section">
+                    <div class="input-group">
+                        <label for="qr-url">URL / Data</label>
+                        <input type="text" id="qr-url" placeholder="https://example.com" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="qr-shape">QR Code Pattern Shape</label>
+                        <select id="qr-shape">
+                            <option value="square">Standard Square</option>
+                            <option value="circle">Circles</option>
+                            <option value="rounded">Rounded Squares</option>
+                            <option value="gapped_square">Gapped Squares</option>
+                        </select>
+                    </div>
+                    
+                    <div class="color-options">
+                        <div class="input-group">
+                            <label for="fill-color">Code Color</label>
+                            <input type="color" id="fill-color" value="#000000">
+                        </div>
+                        <div class="input-group">
+                            <label for="back-color">Background Color</label>
+                            <input type="color" id="back-color" value="#ffffff">
+                        </div>
+                    </div>
+
+                    <div class="upload-group">
+                        <div class="input-group">
+                            <label for="logo-upload">Integrate Logo</label>
+                            <input type="file" id="logo-upload" accept="image/*">
+                            
+                            <div class="logo-controls" style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                                <label style="font-size: 0.8rem; margin-bottom: 4px; display: block;">Logo Shape</label>
+                                <select id="logo-shape" style="margin-bottom: 12px; padding: 0.4rem; font-size: 0.85rem;">
+                                    <option value="square">Square</option>
+                                    <option value="circle">Circle</option>
+                                </select>
+                                
+                                <label style="font-size: 0.8rem; margin-bottom: 4px; display: block;">Logo Position</label>
+                                <select id="logo-position" style="margin-bottom: 12px; padding: 0.4rem; font-size: 0.85rem;">
+                                    <option value="center">Center</option>
+                                    <option value="top">Top</option>
+                                    <option value="bottom">Bottom</option>
+                                </select>
+                                
+                                <label style="font-size: 0.8rem; margin-bottom: 4px; display: block;">Logo Size (<span id="logo-size-val">28%</span>)</label>
+                                <input type="range" id="logo-size" min="10" max="40" value="28" style="width: 100%;">
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="bg-upload">Blend Background Image</label>
+                            <input type="file" id="bg-upload" accept="image/*">
+                            <small>Replaces the solid background with your image.</small>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="primary-btn">Generate My QR Code</button>
+                </form>
+
+                <div class="result-section">
+                    <div id="qr-result" class="hidden">
+                        <h2>Your Masterpiece</h2>
+                        <div class="img-container">
+                            <img id="qr-image" src="" alt="Generated QR Code">
+                        </div>
+                        <a id="download-btn" class="secondary-btn" download="custom_qrcode.png">Download Image</a>
+                    </div>
+                    
+                    <div id="loading" class="hidden">
+                        <div class="spinner"></div>
+                        <p>Generating your custom design...</p>
+                    </div>
+                    
+                    <div id="empty-state">
+                        <div class="placeholder-box">
+                            <p>Your QR code will appear here</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Limitations Modal -->
+    <div id="limitations-modal" class="modal-overlay hidden">
+        <div class="modal-content glass-card">
+            <h2>Background Image Tips 💡</h2>
+            <p>Blending an image into a QR code looks amazing, but it can make it harder for cameras to scan!</p>
+            <h3>How to ensure it scans perfectly:</h3>
+            <ol class="tips-list">
+                <li><strong>Contrast is Key:</strong> Ensure your "Code Color" and the Background Image have high contrast. The smart contrast tool helps, but extreme colors work best.</li>
+                <li><strong>Avoid Clutter:</strong> Very busy images might confuse scanners. Simple gradients or clean textures are ideal.</li>
+                <li><strong>Keep Eyes Clear:</strong> The 3 large corner squares are automatically forced solid to guarantee scanning.</li>
+                <li><strong>Test It:</strong> Always test scan the generated QR code with your phone before sharing it!</li>
+            </ol>
+            <button id="close-modal-btn" class="primary-btn">Got it, let me upload!</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
